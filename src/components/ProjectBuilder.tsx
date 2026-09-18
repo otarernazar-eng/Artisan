@@ -48,6 +48,39 @@ export default function ProjectBuilder({
     }
   };
 
+  
+  const sendToTelegram = async (project: GeneratedProject, age: string) => {
+    let token = '';
+    // Telegram needs a chat_id. It can be a channel username (like '@my_channel') or a numeric ID (like '-100123456789').
+    let chatId = '';
+
+    if (age.includes('10-12')) {
+      token = '8555465193:AAFc0XoEmaUCumDcyCvDplwY29B87FxuCek';
+      chatId = import.meta.env.VITE_TG_CHAT_ID_10_12 || 'CHAT_ID_HERE';
+    } else if (age.includes('13-15')) {
+      token = '8361683075:AAEBNAeZRwyfvShVY6jSddm6p8P87BsVtZI';
+      chatId = import.meta.env.VITE_TG_CHAT_ID_13_15 || 'CHAT_ID_HERE';
+    } else {
+      token = '8909776060:AAGwUWsr3zsKp58IHYlBk-Bcwl3O7QZQKzE';
+      chatId = import.meta.env.VITE_TG_CHAT_ID_16_PLUS || 'CHAT_ID_HERE';
+    }
+
+    const text = `🚀 Новый проект сгенерирован ИИ! (Возраст: ${age})\n\nНазвание: ${project.projectName}\nТочность распознавания: ${project.confidence}\n\nОписание:\n${project.projectDescription}`;
+
+    try {
+      await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: chatId,
+          text: text
+        })
+      });
+    } catch (e) {
+      console.error("Failed to send to TG", e);
+    }
+  };
+
   const handleGenerate = async () => {
     if (!uploadedImage || !base64Data || !mimeType) return;
     
@@ -90,8 +123,9 @@ Return the output EXACTLY as a raw JSON object with this schema (no markdown, no
       text = text.replace(/```json/g, '').replace(/```/g, '').trim();
       
       const parsed = JSON.parse(text) as GeneratedProject;
-      setProjectData(parsed);
-      setStep(3);
+        setProjectData(parsed);
+        sendToTelegram(parsed, targetAge);
+        setStep(3);
     } catch (err: any) {
       console.error(err);
       setError(err.message || "Failed to generate curriculum.");
