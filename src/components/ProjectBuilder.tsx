@@ -246,7 +246,7 @@ Return the output EXACTLY as a raw JSON object with this schema (no markdown, no
           >
              <ScanSearch className={`w-12 h-12 animate-pulse mb-6 ${isDark ? 'text-white' : 'text-black'}`} />
              <h2 className="text-2xl font-semibold mb-2 tracking-tight">Анализируем детали...</h2>
-             <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>Gemini 3.5 Flash определяет компоненты и придумывает проект.</p>
+             <p className={isDark ? 'text-gray-400' : 'text-gray-600'}>Искусственный интеллект определяет компоненты и придумывает проект.</p>
           </motion.div>
         )}
 
