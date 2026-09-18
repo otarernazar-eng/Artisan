@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Folder, Plus, ArrowLeft, Sun, Moon } from 'lucide-react';
 import Dashboard from './components/Dashboard';
 import ProjectBuilder from './components/ProjectBuilder';
 import StudentView from './components/StudentView';
 import type { SavedProject } from './types';
+import { db } from './lib/firebase';
+import { ref, onValue, set } from 'firebase/database';
 
 type Role = 'none' | 'teacher' | 'student';
 type View = 'dashboard' | 'builder';
@@ -14,45 +16,47 @@ function App() {
   const [currentView, setCurrentView] = useState<View>('dashboard');
   const [isDark, setIsDark] = useState(true);
 
-  const [savedProjects, setSavedProjects] = useState<SavedProject[]>(() => {
-    const saved = localStorage.getItem('artisan_projects');
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [viewingProject, setViewingProject] = useState<SavedProject | null>(() => {
-    const active = localStorage.getItem('artisan_active_project');
-    return active ? JSON.parse(active) : null;
-  });
+  const [savedProjects, setSavedProjects] = useState<SavedProject[]>([]);
+  const [viewingProject, setViewingProject] = useState<SavedProject | null>(null);
 
-  React.useEffect(() => {
-    localStorage.setItem('artisan_projects', JSON.stringify(savedProjects));
-  }, [savedProjects]);
+  useEffect(() => {
+    const projectsRef = ref(db, 'projects');
+    const unsubscribeProjects = onValue(projectsRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const projectsArray = Object.values(data) as SavedProject[];
+        // Sort newest first by putting them in reverse order (assuming id is timestamp-based)
+        setSavedProjects(projectsArray.sort((a, b) => b.id.localeCompare(a.id)));
+      } else {
+        setSavedProjects([]);
+      }
+    });
 
-  React.useEffect(() => {
-    if (viewingProject) {
-      localStorage.setItem('artisan_active_project', JSON.stringify(viewingProject));
-    } else {
-      localStorage.removeItem('artisan_active_project');
-    }
-  }, [viewingProject]);
+    const activeRef = ref(db, 'active_project');
+    const unsubscribeActive = onValue(activeRef, (snapshot) => {
+      setViewingProject(snapshot.val());
+    });
+
+    return () => {
+      unsubscribeProjects();
+      unsubscribeActive();
+    };
+  }, []);
 
   const handleSaveProject = (project: SavedProject) => {
-    setSavedProjects(prev => [project, ...prev]);
+    set(ref(db, 'projects/' + project.id), project);
     setCurrentView('dashboard');
   };
 
   const handleSendToStudent = (project: SavedProject) => {
-    setViewingProject(project);
-    alert('Задание успешно отправлено ученикам!');
+    set(ref(db, 'active_project'), project);
+    alert('Задание отправлено студентам!');
   };
 
   const handleSendToStudentFromBuilder = (project: SavedProject) => {
-    // Optionally save it to library if not there
-    setSavedProjects(prev => {
-      if (!prev.find(p => p.id === project.id)) return [project, ...prev];
-      return prev;
-    });
-    setViewingProject(project);
-    alert('Задание успешно отправлено ученикам!');
+    set(ref(db, 'projects/' + project.id), project);
+    set(ref(db, 'active_project'), project);
+    alert('Задание отправлено студентам!');
   };
 
   const toggleTheme = () => setIsDark(!isDark);
