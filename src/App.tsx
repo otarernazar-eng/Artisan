@@ -73,7 +73,7 @@ function App() {
               <img 
                 src="/logo-star.png" 
                 alt="Logo" 
-                className={`w-12 max-w-none h-auto ${isDark ? 'mix-blend-screen' : 'invert mix-blend-multiply'}`}
+                className={`w-12 max-w-none h-auto rounded-xl ${isDark ? 'mix-blend-screen' : 'invert mix-blend-multiply'}`}
               />
             </div>
           </div>
@@ -124,7 +124,7 @@ function App() {
              <div className="relative z-10 flex items-center justify-center">
                 <img 
                   src="/logo-star.png" 
-                  className={`w-64 md:w-80 h-auto ${isDark ? 'mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'invert mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
+                  className={`w-64 md:w-80 h-auto rounded-[3rem] ${isDark ? 'mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'invert mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
                   alt="Artisan Symbol" 
                 />
              </div>
@@ -153,7 +153,7 @@ function App() {
                     isDark ? 'border-white/20 text-white hover:bg-white/10' : 'border-black/20 text-black hover:bg-black/5'
                   }`}
                 >
-                  Talk to sales
+                  Try Sandbox
                 </button>
               </div>
             </div>
