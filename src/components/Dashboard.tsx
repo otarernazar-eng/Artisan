@@ -66,7 +66,8 @@ export default function Dashboard({
               >
                 <div className="h-48 overflow-hidden bg-black relative shrink-0">
                   <img 
-                    src={project.image} 
+                    src={project.image?.startsWith('blob:') ? 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80' : project.image} 
+                    onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'; }}
                     alt="Hardware" 
                     className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
                   />

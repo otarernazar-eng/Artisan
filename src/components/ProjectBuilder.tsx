@@ -65,7 +65,7 @@ export default function ProjectBuilder({
       chatId = '-1004380478869';
     }
 
-    const text = `🚀 Новый проект сгенерирован ИИ! (Возраст: ${age})\n\nНазвание: ${project.projectName}\nТочность распознавания: ${project.confidence}\n\nОписание:\n${project.projectDescription}`;
+    const text = `🚀 Новый проект сгенерирован ИИ! (Возраст: ${age})\n\nНазвание: ${project.projectName}\nТочность распознавания: ${project.confidence}\n\n🛠 Необходимые модули:\n${[...new Set(project.boundingBoxes.map(b => '• ' + b.label))].join('\n')}\n\nОписание:\n${project.projectDescription}`;
 
     try {
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
