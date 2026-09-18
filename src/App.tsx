@@ -64,12 +64,11 @@ function App() {
         {/* Top Navbar */}
         <nav className={`flex items-center justify-between px-6 py-4 border-b z-50 ${isDark ? 'border-white/10' : 'border-black/10'}`}>
           <div className="flex items-center gap-6">
-            <div className="w-10 h-10 flex items-center justify-center">
+              <div className="w-10 h-10 flex items-center justify-center">
               <img 
-                src="/logo-main.png" 
+                src="/logo-star.png" 
                 alt="Logo" 
-                className={`w-12 max-w-none h-auto -translate-y-1 ${isDark ? 'invert mix-blend-screen' : 'mix-blend-multiply'}`}
-                style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 75%)' }}
+                className={`w-12 max-w-none h-auto ${isDark ? 'mix-blend-screen' : 'invert mix-blend-multiply'}`}
               />
             </div>
           </div>
@@ -119,9 +118,8 @@ function App() {
              {/* Logo cropped (Symbol only) */}
              <div className="relative z-10 flex items-center justify-center">
                 <img 
-                  src="/logo-main.png" 
-                  className={`w-64 md:w-80 h-auto -translate-y-8 ${isDark ? 'invert mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
-                  style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 75%)' }}
+                  src="/logo-star.png" 
+                  className={`w-64 md:w-80 h-auto ${isDark ? 'mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'invert mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
                   alt="Artisan Symbol" 
                 />
              </div>
