@@ -64,11 +64,11 @@ function App() {
         {/* Top Navbar */}
         <nav className={`flex items-center justify-between px-6 py-4 border-b z-50 ${isDark ? 'border-white/10' : 'border-black/10'}`}>
           <div className="flex items-center gap-6">
-            <div className="w-8 h-8 overflow-hidden flex items-start justify-center">
+            <div className="w-10 h-10 overflow-hidden flex items-start justify-center">
               <img 
-                src="/logo.png" 
+                src="/logo-main.png" 
                 alt="Logo" 
-                className={`w-8 max-w-none h-auto object-cover object-top -mt-0.5 ${isDark ? 'invert mix-blend-screen' : 'mix-blend-multiply'}`} 
+                className={`w-10 max-w-none h-auto object-cover object-[50%_0%] -mt-0.5 ${isDark ? 'invert mix-blend-screen' : 'mix-blend-multiply'}`} 
               />
             </div>
             <div className={`hidden md:flex items-center gap-6 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
@@ -114,14 +114,25 @@ function App() {
           
           {/* Center Glowing Logo */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-             {/* Background Glow */}
-             <div className={`absolute w-[300px] h-[300px] md:w-[500px] md:h-[500px] blur-[100px] rounded-full transition-opacity duration-1000 ${isDark ? 'bg-white/20' : 'bg-black/10'}`}></div>
+             {/* Spinning Background Glow */}
+             <motion.div 
+               animate={{ rotate: 360 }}
+               transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+               className={`absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] blur-[100px] rounded-full transition-opacity duration-1000 ${
+                 isDark ? 'opacity-40' : 'opacity-20'
+               }`}
+               style={{ 
+                 background: isDark 
+                   ? 'conic-gradient(from 0deg, transparent, rgba(255,255,255,0.7), transparent, rgba(255,255,255,0.7), transparent)' 
+                   : 'conic-gradient(from 0deg, transparent, rgba(0,0,0,0.6), transparent, rgba(0,0,0,0.6), transparent)' 
+               }}
+             />
              
              {/* Logo cropped (Symbol only) */}
-             <div className="w-48 h-36 md:w-64 md:h-48 relative overflow-hidden flex justify-center z-10">
+             <div className="w-56 h-48 md:w-[320px] md:h-[280px] relative overflow-hidden flex justify-center z-10">
                 <img 
-                  src="/logo.png" 
-                  className={`w-full absolute top-0 left-0 h-[140%] object-cover object-top drop-shadow-2xl ${isDark ? 'invert mix-blend-screen drop-shadow-[0_0_30px_rgba(255,255,255,0.5)]' : 'mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
+                  src="/logo-main.png" 
+                  className={`w-full absolute top-0 left-0 h-[140%] object-cover object-[50%_0%] drop-shadow-2xl ${isDark ? 'invert mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
                   alt="Artisan Symbol" 
                 />
              </div>
