@@ -64,26 +64,14 @@ function App() {
         {/* Top Navbar */}
         <nav className={`flex items-center justify-between px-6 py-4 border-b z-50 ${isDark ? 'border-white/10' : 'border-black/10'}`}>
           <div className="flex items-center gap-6">
-            <div className="w-10 h-10 overflow-hidden flex items-start justify-center">
+            <div className="w-10 h-10 flex items-center justify-center">
               <img 
                 src="/logo-main.png" 
                 alt="Logo" 
-                className={`w-10 max-w-none h-auto object-cover object-[50%_0%] -mt-0.5 ${isDark ? 'invert mix-blend-screen' : 'mix-blend-multiply'}`} 
+                className={`w-12 max-w-none h-auto -translate-y-1 ${isDark ? 'invert mix-blend-screen' : 'mix-blend-multiply'}`}
+                style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 75%)' }}
               />
             </div>
-            <div className={`hidden md:flex items-center gap-6 text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-              <a href="#" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-black'}`}>Products</a>
-              <a href="#" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-black'}`}>Resources</a>
-              <a href="#" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-black'}`}>Enterprise</a>
-              <a href="#" className={`transition-colors ${isDark ? 'hover:text-white' : 'hover:text-black'}`}>Pricing</a>
-            </div>
-          </div>
-
-          <div className="absolute left-1/2 -translate-x-1/2 top-5 hidden lg:flex items-center gap-2 text-sm font-medium">
-            <span className={isDark ? 'text-gray-300' : 'text-gray-700'}>Artisan Studio is now in beta</span>
-            <button onClick={() => setRole('teacher')} className={`flex items-center gap-1 transition-colors ${isDark ? 'text-white hover:text-gray-300' : 'text-black hover:text-gray-600'}`}>
-              Try it out <span className="text-lg leading-none">›</span>
-            </button>
           </div>
 
           <div className="flex items-center gap-4">
@@ -129,10 +117,11 @@ function App() {
              />
              
              {/* Logo cropped (Symbol only) */}
-             <div className="w-56 h-48 md:w-[320px] md:h-[280px] relative overflow-hidden flex justify-center z-10">
+             <div className="relative z-10 flex items-center justify-center">
                 <img 
                   src="/logo-main.png" 
-                  className={`w-full absolute top-0 left-0 h-[140%] object-cover object-[50%_0%] drop-shadow-2xl ${isDark ? 'invert mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
+                  className={`w-64 md:w-80 h-auto -translate-y-8 ${isDark ? 'invert mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
+                  style={{ clipPath: 'polygon(0 0, 100% 0, 100% 75%, 0 75%)' }}
                   alt="Artisan Symbol" 
                 />
              </div>
