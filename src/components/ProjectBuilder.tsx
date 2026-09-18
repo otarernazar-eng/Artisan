@@ -56,13 +56,13 @@ export default function ProjectBuilder({
 
     if (age.includes('10-12')) {
       token = '8555465193:AAFc0XoEmaUCumDcyCvDplwY29B87FxuCek';
-      chatId = import.meta.env.VITE_TG_CHAT_ID_10_12 || 'CHAT_ID_HERE';
+      chatId = '-1004326695006';
     } else if (age.includes('13-15')) {
       token = '8361683075:AAEBNAeZRwyfvShVY6jSddm6p8P87BsVtZI';
-      chatId = import.meta.env.VITE_TG_CHAT_ID_13_15 || 'CHAT_ID_HERE';
+      chatId = '-1003971229591';
     } else {
       token = '8909776060:AAGwUWsr3zsKp58IHYlBk-Bcwl3O7QZQKzE';
-      chatId = import.meta.env.VITE_TG_CHAT_ID_16_PLUS || 'CHAT_ID_HERE';
+      chatId = '-1004380478869';
     }
 
     const text = `🚀 Новый проект сгенерирован ИИ! (Возраст: ${age})\n\nНазвание: ${project.projectName}\nТочность распознавания: ${project.confidence}\n\nОписание:\n${project.projectDescription}`;
