@@ -7,12 +7,14 @@ export default function Dashboard({
   onNewProject, 
   isDark, 
   savedProjects = [], 
-  onViewProject 
+  onViewProject,
+  onOpenProject
 }: { 
   onNewProject: () => void, 
   isDark: boolean,
   savedProjects?: SavedProject[],
-  onViewProject?: (p: SavedProject) => void
+  onViewProject?: (p: SavedProject) => void,
+  onOpenProject?: (p: SavedProject) => void
 }) {
   return (
     <motion.div 
@@ -75,12 +77,20 @@ export default function Dashboard({
                     <Clock className="w-4 h-4" />
                     {new Date(project.date).toLocaleDateString()}
                   </div>
-                  <div className="mt-auto">
+                  <div className="mt-auto pt-4 border-t border-white/5 flex gap-3">
+                    <button 
+                      onClick={() => onOpenProject?.(project)}
+                      className={`flex-1 py-3 rounded-xl font-medium transition-colors border text-sm ${
+                        isDark ? 'border-white/20 text-white hover:bg-white/10' : 'border-black/20 text-black hover:bg-black/5'
+                      }`}
+                    >
+                      Открыть
+                    </button>
                     <button 
                       onClick={() => onViewProject?.(project)}
-                      className="w-full py-3 rounded-xl text-sm font-semibold transition-colors bg-blue-600 hover:bg-blue-700 text-white"
+                      className="flex-1 py-3 rounded-xl font-medium transition-colors bg-blue-600 hover:bg-blue-700 text-white text-sm"
                     >
-                      Отправить ученику
+                      Отправить
                     </button>
                   </div>
                 </div>

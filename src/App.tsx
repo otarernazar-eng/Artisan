@@ -18,6 +18,7 @@ function App() {
 
   const [savedProjects, setSavedProjects] = useState<SavedProject[]>([]);
   const [viewingProject, setViewingProject] = useState<SavedProject | null>(null);
+  const [builderInitialProject, setBuilderInitialProject] = useState<SavedProject | null>(null);
 
   useEffect(() => {
     const projectsRef = ref(db, 'projects');
@@ -209,7 +210,10 @@ function App() {
             icon={<Plus />} 
             label="New Project" 
             active={currentView === 'builder'} 
-            onClick={() => setCurrentView('builder')} 
+            onClick={() => {
+              setBuilderInitialProject(null);
+              setCurrentView('builder');
+            }} 
             isDark={isDark}
           />
         </nav>
@@ -244,10 +248,17 @@ function App() {
             {currentView === 'dashboard' && (
               <Dashboard 
                 key="dashboard" 
-                onNewProject={() => setCurrentView('builder')} 
+                onNewProject={() => {
+                  setBuilderInitialProject(null);
+                  setCurrentView('builder');
+                }} 
                 isDark={isDark} 
                 savedProjects={savedProjects}
                 onViewProject={handleSendToStudent}
+                onOpenProject={(p) => {
+                  setBuilderInitialProject(p);
+                  setCurrentView('builder');
+                }}
               />
             )}
             {currentView === 'builder' && (
@@ -257,6 +268,7 @@ function App() {
                 isDark={isDark} 
                 onSave={handleSaveProject}
                 onSendToStudent={handleSendToStudentFromBuilder}
+                initialProject={builderInitialProject}
               />
             )}
           </AnimatePresence>

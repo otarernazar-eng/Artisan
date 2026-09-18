@@ -10,23 +10,25 @@ export default function ProjectBuilder({
   onBack, 
   isDark,
   onSave,
-  onSendToStudent
+  onSendToStudent,
+  initialProject
 }: { 
   onBack: () => void, 
   isDark: boolean,
   onSave?: (p: SavedProject) => void,
-  onSendToStudent?: (p: SavedProject) => void
+  onSendToStudent?: (p: SavedProject) => void,
+  initialProject?: SavedProject | null
 }) {
   const printRef = useRef<HTMLDivElement>(null);
-  const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [step, setStep] = useState<1 | 2 | 3>(initialProject ? 3 : 1);
+  const [uploadedImage, setUploadedImage] = useState<string | null>(initialProject ? initialProject.image : null);
   const [base64Data, setBase64Data] = useState<string | null>(null);
   const [mimeType, setMimeType] = useState<string | null>(null);
   
   const [targetAge, setTargetAge] = useState('10-12 years');
   const [difficulty, setDifficulty] = useState('Beginner');
   
-  const [projectData, setProjectData] = useState<GeneratedProject | null>(null);
+  const [projectData, setProjectData] = useState<GeneratedProject | null>(initialProject ? initialProject.data : null);
   const [error, setError] = useState<string | null>(null);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
