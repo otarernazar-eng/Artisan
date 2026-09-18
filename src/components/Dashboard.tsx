@@ -56,9 +56,9 @@ export default function Dashboard({
             <BookOpen className="w-5 h-5 text-gray-500" /> 
             Saved Projects
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.1 } } }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {savedProjects.map(project => (
-              <div 
+              <motion.div variants={{ hidden: { opacity: 0, y: 20, scale: 0.95 }, visible: { opacity: 1, y: 0, scale: 1 } }} transition={{ duration: 0.4, type: "spring", stiffness: 100 }} 
                 key={project.id}
                 className={`rounded-3xl border overflow-hidden group transition-all duration-300 hover:shadow-lg flex flex-col ${
                   isDark ? 'bg-[#111] border-[#333] hover:border-gray-500' : 'bg-white border-gray-200 hover:border-gray-400'
@@ -94,9 +94,9 @@ export default function Dashboard({
                     </button>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
       )}
     </motion.div>

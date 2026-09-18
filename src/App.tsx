@@ -121,13 +121,13 @@ function App() {
              />
              
              {/* Logo cropped (Symbol only) */}
-             <div className="relative z-10 flex items-center justify-center">
+             <motion.div animate={{ y: [-15, 15, -15], scale: [1, 1.02, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="relative z-10 flex items-center justify-center">
                 <img 
                   src="/logo-star.png" 
                   className={`w-64 md:w-80 h-auto rounded-[3rem] ${isDark ? 'mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'invert mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
                   alt="Artisan Symbol" 
                 />
-             </div>
+             </motion.div>
           </div>
 
           {/* Content Grid */}
@@ -135,10 +135,10 @@ function App() {
             
             {/* Left Column */}
             <div className="flex flex-col gap-8 text-center lg:text-left items-center lg:items-start">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] z-10">
+              <motion.h1 initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] z-10">
                 Educational<br/>Infrastructure
-              </h1>
-              <div className="flex items-center gap-4 z-10">
+              </motion.h1>
+              <motion.div initial={{ opacity: 0, y: 20, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 100 }} className="flex items-center gap-4 z-10">
                 <button 
                   onClick={() => setRole('teacher')} 
                   className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
@@ -155,18 +155,18 @@ function App() {
                 >
                   Try Sandbox
                 </button>
-              </div>
+              </motion.div>
             </div>
 
             {/* Center Column (Empty space for Logo) */}
             <div className="hidden lg:block h-full pointer-events-none"></div>
 
             {/* Right Column */}
-            <div className="flex flex-col justify-center items-center lg:items-start lg:pl-16 gap-3 font-medium z-10 text-lg md:text-xl">
-              <p className={isDark ? 'text-gray-300' : 'text-gray-700'}>For STEM educators</p>
-              <p className={isDark ? 'text-gray-300' : 'text-gray-700'}>To ship interactive lessons</p>
-              <p className={isDark ? 'text-gray-300' : 'text-gray-700'}>Powered by AI agents</p>
-            </div>
+            <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.15, delayChildren: 0.3 } } }} className="flex flex-col justify-center items-center lg:items-start lg:pl-16 gap-3 font-medium z-10 text-lg md:text-xl">
+              <motion.p variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.6, ease: "easeOut" }} className={isDark ? "text-gray-300" : "text-gray-700"}>For STEM educators</motion.p>
+              <motion.p variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.6, ease: "easeOut" }} className={isDark ? "text-gray-300" : "text-gray-700"}>To ship interactive lessons</motion.p>
+              <motion.p variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.6, ease: "easeOut" }} className={isDark ? "text-gray-300" : "text-gray-700"}>Powered by AI agents</motion.p>
+            </motion.div>
 
           </div>
         </main>
