@@ -170,9 +170,36 @@ function App() {
 
           </div>
         </main>
-      </div>
-    );
-  }
+
+          {/* BW Artisan Info */}
+          <section className="w-full bg-black text-white py-32 mt-20">
+            <div className="max-w-4xl mx-auto px-8">
+              <h2 className="text-6xl font-black uppercase tracking-tighter mb-16 border-b-8 border-white pb-8">
+                О Artisan Education
+              </h2>
+              
+              <div className="space-y-16 text-3xl font-bold leading-tight">
+                <div>
+                  <h3 className="text-gray-400 uppercase tracking-widest text-lg mb-4">Кто мы</h3>
+                  <p>Производитель IoT-наборов и образовательная платформа, обучающая детей инженерии и программированию.</p>
+                </div>
+
+                <div>
+                  <h3 className="text-gray-400 uppercase tracking-widest text-lg mb-4">Сооснователи</h3>
+                  <p>Отар Ерназар и команда увлеченных STEM-преподавателей.</p>
+                </div>
+
+                <div>
+                  <h3 className="text-gray-400 uppercase tracking-widest text-lg mb-4">Наша цель</h3>
+                  <p>Трансформировать STEM-образование и разжечь природное любопытство каждого ребенка.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+</div>
+);
+}
 
   if (role === 'student') {
     return <StudentView onExit={() => setRole('none')} isDark={isDark} project={viewingProject} />;
