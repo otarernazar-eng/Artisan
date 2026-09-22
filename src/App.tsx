@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Folder, Plus, ArrowLeft, Sun, Moon } from 'lucide-react';
+import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import ProjectBuilder from './components/ProjectBuilder';
 import StudentView from './components/StudentView';
@@ -63,143 +64,8 @@ function App() {
   const toggleTheme = () => setIsDark(!isDark);
 
   if (role === 'none') {
-    return (
-      <div className={`flex flex-col min-h-screen font-sans ${isDark ? 'bg-black text-white' : 'bg-[#FAFAFA] text-black'}`}>
-        
-        {/* Top Navbar */}
-        <nav className={`flex items-center justify-between px-6 py-4 border-b z-50 ${isDark ? 'border-white/10' : 'border-black/10'}`}>
-          <div className="flex items-center gap-6">
-              <div className="w-10 h-10 flex items-center justify-center">
-              <img 
-                src="/logo-star.png" 
-                alt="Logo" 
-                className={`w-12 max-w-none h-auto rounded-xl ${isDark ? 'mix-blend-screen' : 'invert mix-blend-multiply'}`}
-              />
-            </div>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <button onClick={toggleTheme} className={`p-2 rounded-full transition-colors ${isDark ? 'text-gray-400 hover:text-white hover:bg-white/10' : 'text-gray-500 hover:text-black hover:bg-black/5'}`}>
-              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
-            </button>
-            <button 
-              onClick={() => setRole('student')}
-              className={`text-sm font-medium px-4 py-2 rounded-md transition-colors border ${
-                isDark ? 'border-white/20 text-white hover:bg-white/10' : 'border-black/20 text-black hover:bg-black/5'
-              }`}
-            >
-              Student Login
-            </button>
-            <button 
-              onClick={() => setRole('teacher')}
-              className={`text-sm font-medium px-4 py-2 rounded-md transition-colors ${
-                isDark ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'
-              }`}
-            >
-              Teacher Login
-            </button>
-          </div>
-        </nav>
-
-        {/* Main Hero Section */}
-        <main className="flex-1 relative flex flex-col items-center justify-center p-8 z-10 overflow-hidden">
-          
-          {/* Center Glowing Logo */}
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
-             {/* Spinning Background Glow */}
-             <motion.div 
-               animate={{ rotate: 360 }}
-               transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-               className={`absolute w-[400px] h-[400px] md:w-[600px] md:h-[600px] blur-[100px] rounded-full transition-opacity duration-1000 ${
-                 isDark ? 'opacity-40' : 'opacity-20'
-               }`}
-               style={{ 
-                 background: isDark 
-                   ? 'conic-gradient(from 0deg, transparent, rgba(255,255,255,0.7), transparent, rgba(255,255,255,0.7), transparent)' 
-                   : 'conic-gradient(from 0deg, transparent, rgba(0,0,0,0.6), transparent, rgba(0,0,0,0.6), transparent)' 
-               }}
-             />
-             
-             {/* Logo cropped (Symbol only) */}
-             <motion.div animate={{ y: [-15, 15, -15], scale: [1, 1.02, 1] }} transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }} className="relative z-10 flex items-center justify-center">
-                <img 
-                  src="/logo-star.png" 
-                  className={`w-64 md:w-80 h-auto rounded-[3rem] ${isDark ? 'mix-blend-screen drop-shadow-[0_0_40px_rgba(255,255,255,0.5)]' : 'invert mix-blend-multiply drop-shadow-[0_0_30px_rgba(0,0,0,0.3)]'}`} 
-                  alt="Artisan Symbol" 
-                />
-             </motion.div>
-          </div>
-
-          {/* Content Grid */}
-          <div className="w-full max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12 items-center z-10 h-full min-h-[60vh]">
-            
-            {/* Left Column */}
-            <div className="flex flex-col gap-8 text-center lg:text-left items-center lg:items-start">
-              <motion.h1 initial={{ opacity: 0, x: -40 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.8, ease: "easeOut" }} className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[1.1] z-10">
-                Educational<br/>Infrastructure
-              </motion.h1>
-              <motion.div initial={{ opacity: 0, y: 20, scale: 0.9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ duration: 0.5, delay: 0.2, type: "spring", stiffness: 100 }} className="flex items-center gap-4 z-10">
-                <button 
-                  onClick={() => setRole('teacher')} 
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-colors ${
-                    isDark ? 'bg-white text-black hover:bg-gray-200' : 'bg-black text-white hover:bg-gray-800'
-                  }`}
-                >
-                  Deploy now
-                </button>
-                <button 
-                  onClick={() => setRole('student')} 
-                  className={`px-6 py-3 rounded-full text-sm font-medium transition-colors border ${
-                    isDark ? 'border-white/20 text-white hover:bg-white/10' : 'border-black/20 text-black hover:bg-black/5'
-                  }`}
-                >
-                  Try Sandbox
-                </button>
-              </motion.div>
-            </div>
-
-            {/* Center Column (Empty space for Logo) */}
-            <div className="hidden lg:block h-full pointer-events-none"></div>
-
-            {/* Right Column */}
-            <motion.div initial="hidden" animate="visible" variants={{ visible: { transition: { staggerChildren: 0.15, delayChildren: 0.3 } } }} className="flex flex-col justify-center items-center lg:items-start lg:pl-16 gap-3 font-medium z-10 text-lg md:text-xl">
-              <motion.p variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.6, ease: "easeOut" }} className={isDark ? "text-gray-300" : "text-gray-700"}>For STEM educators</motion.p>
-              <motion.p variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.6, ease: "easeOut" }} className={isDark ? "text-gray-300" : "text-gray-700"}>To ship interactive lessons</motion.p>
-              <motion.p variants={{ hidden: { opacity: 0, x: 50 }, visible: { opacity: 1, x: 0 } }} transition={{ duration: 0.6, ease: "easeOut" }} className={isDark ? "text-gray-300" : "text-gray-700"}>Powered by AI agents</motion.p>
-            </motion.div>
-
-          </div>
-        </main>
-
-          {/* BW Artisan Info */}
-          <section className="w-full bg-black text-white py-32 mt-20">
-            <div className="max-w-4xl mx-auto px-8">
-              <h2 className="text-6xl font-black uppercase tracking-tighter mb-16 border-b-8 border-white pb-8">
-                О Artisan Education
-              </h2>
-              
-              <div className="space-y-16 text-3xl font-bold leading-tight">
-                <div>
-                  <h3 className="text-gray-400 uppercase tracking-widest text-lg mb-4">Кто мы</h3>
-                  <p>Производитель IoT-наборов и образовательная платформа, обучающая детей инженерии и программированию.</p>
-                </div>
-
-                <div>
-                  <h3 className="text-gray-400 uppercase tracking-widest text-lg mb-4">Сооснователи</h3>
-                  <p>Отар Ерназар и команда увлеченных STEM-преподавателей.</p>
-                </div>
-
-                <div>
-                  <h3 className="text-gray-400 uppercase tracking-widest text-lg mb-4">Наша цель</h3>
-                  <p>Трансформировать STEM-образование и разжечь природное любопытство каждого ребенка.</p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-</div>
-);
-}
+    return <LandingPage onLoginTeacher={() => setRole('teacher')} onLoginStudent={() => setRole('student')} />;
+  }
 
   if (role === 'student') {
     return <StudentView onExit={() => setRole('none')} isDark={isDark} project={viewingProject} />;
